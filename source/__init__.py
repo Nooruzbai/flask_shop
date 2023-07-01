@@ -1,3 +1,5 @@
+from os import environ
+
 from flask import Flask
 from .extensions import db, migrate, login_manager
 from source.auth_app.user_models import User
@@ -5,8 +7,15 @@ from source.auth_app.user_models import User
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'secret-key-goes-here'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://nooruzbai:2121@localhost/flask_database'
+
+    secret_key = environ.get('SECRET_KEY')
+    postgres_user = environ.get('POSTGRES_USER')
+    postgres_password = environ.get('POSTGRES_PASSWORD')
+    postgres_database = environ.get('POSTGRES_DB')
+
+    database_url = f'postgresql://{postgres_user}:{postgres_password}@localhost/{postgres_database}'
+    app.config['SECRET_KEY'] = secret_key
+    app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
