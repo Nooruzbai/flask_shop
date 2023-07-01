@@ -1,7 +1,7 @@
 from flask import render_template, Blueprint, redirect, request, session
 from flask_login import login_required, current_user
 from source.extensions import db
-from source.item_app.item_form import ItemForm
+from source.item_app.item_forms import ItemForm
 from source.item_app.item_models import Item
 
 main = Blueprint('main', __name__)
