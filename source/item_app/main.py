@@ -24,13 +24,13 @@ def add_item():
         new_item = Item(name=name, price=price)
         db.session.add(new_item)
         db.session.commit()
-    return render_template('webapp/create.html', form=form, user=current_user)
+    return render_template('items/create.html', form=form, user=current_user)
 
 
 @main.route('/item_details/<int:pk>')
 def item_details(pk):
     item = Item.query.get_or_404(pk)
-    return render_template('webapp/detail.html', item=item, user=current_user)
+    return render_template('items/detail.html', item=item, user=current_user)
 
 
 
