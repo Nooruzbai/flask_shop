@@ -37,10 +37,12 @@ def create_app():
     # blueprint for auth routes in our app
     from source.auth_app.auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
-    #
     # blueprint for non-auth parts of app
-    from source.item_app.main import main as main_blueprint
-    app.register_blueprint(main_blueprint)
+    from source.item_app.item import item as item_blueprint
+    app.register_blueprint(item_blueprint)
+
+    from source.cart_app.cart import cart as cart_blueprint
+    app.register_blueprint(cart_blueprint)
 
     return app
 

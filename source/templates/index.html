@@ -3,19 +3,31 @@
 {% block content %}
     <h1>HomePage Online Shop</h1>
 
-<div class="p-3">
-    <a class="btn btn-primary btn-lg" href="{{ url_for('main.add_item') }}">Create new item</a>
-</div>
+    <div class="p-3">
+        <a class="btn btn-primary btn-lg" href="{{ url_for('item.add_item') }}">Create new item</a>
+    </div>
 
 
     {% for item in items %}
-        <div class="card" style="width: 18rem;">
+        <div class="card my-4 mx-4" style="display:inline-block; width: 18rem">
 
-{#          <img src="..." class="card-img-top" alt="...">  #}
+            <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">{{ item.name }}</h5>
-                <p class="card-text">{{ item.price }}</p>
-                <a href="{{ url_for('main.item_details', pk=item.id) }}" class="btn btn-primary">Details</a>
+                <h5 class="card-title">Name: {{ item.name }}</h5>
+                <p class="card-text">Price: {{ item.price }} $</p>
+
+                <form action="{{ url_for('item.item_details', pk=item.id) }}"  method="GET">
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button type="submit" class="btn btn-primary my-2 mx-2">Details</button>
+                </form>
+
+
+                <form action="{{ url_for('item.item_delete', pk=item.id) }}" method="POST">
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button type="submit" class="btn btn-danger my-2 mx-2">Delete</button>
+                </form>
+
+
             </div>
         </div>
     {% endfor %}

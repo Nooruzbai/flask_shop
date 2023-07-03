@@ -14,7 +14,7 @@ auth = Blueprint('auth', __name__)
 def login():
     if current_user.is_authenticated:
         flash('You are already logged in', category='info')
-        return redirect(url_for('main.home_page'))
+        return redirect(url_for('item.home_page'))
     form = LoginForm()
     if form.validate_on_submit():
         email = form.email.data
@@ -23,7 +23,7 @@ def login():
         if user:
             if check_password_hash(user.password_hash, password):
                 login_user(user, remember=True)
-                return redirect(url_for('main.home_page'))
+                return redirect(url_for('item.home_page'))
             else:
                 flash('Incorrect password, try again.', category='error')
         else:
@@ -44,7 +44,7 @@ def register():
         db.session.commit()
         flash("Registration was successfull, please login")
         return redirect(url_for('auth.login'))
-    return render_template('auth/register.html', form=form, user=current_user)
+    return render_template('templates/auth/register.html', form=form, user=current_user)
 
 
 @auth.route('/logout')

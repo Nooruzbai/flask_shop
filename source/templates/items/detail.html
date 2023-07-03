@@ -3,20 +3,21 @@
 {% block content %}
     <h1>Item Details</h1>
 
-{#<div class="p-3">#}
-{#    <a class="btn btn-primary btn-lg" href="{{ url_for('main.add_item') }}">Create new item</a>#}
-{#</div>#}
+    {#<div class="p-3">#}
+    {#    <a class="btn btn-primary btn-lg" href="{{ url_for('main.add_item') }}">Create new item</a>#}
+    {#</div>#}
 
-        <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 18rem;">
 
-{#          <img src="..." class="card-img-top" alt="...">  #}
-            <div class="card-body">
-                <h5 class="card-title">{{ item.name }}</h5>
-                <p class="card-text">{{ item.price }}</p>
-                <a href="{{ url_for('main.add_cart') }}" class="btn btn-primary">Add to Cart</a>
-            </div>
+        {#          <img src="..." class="card-img-top" alt="...">  #}
+        <div class="card-body">
+            <h5 class="card-title">{{ item.name }}</h5>
+            <p class="card-text">{{ item.price }}</p>
         </div>
-
-
+    </div>
+    <form action="{{ url_for('cart.add_cart', pk=item.id) }}" method="POST">
+        <input type="hidden" name="next" value="{{ request.path }}">
+        <button type="submit" class="btn btn-primary">{{ 'Add to Cart' }}</button>
+    </form>
 
 {% endblock %}
