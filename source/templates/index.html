@@ -16,7 +16,7 @@
                 <h5 class="card-title">Name: {{ item.name }}</h5>
                 <p class="card-text">Price: {{ item.price }} $</p>
 
-                <form action="{{ url_for('item.item_details', pk=item.id) }}"  method="GET">
+                <form action="{{ url_for('item.item_details', pk=item.id) }}" method="GET">
                     <input type="hidden" name="next" value="{{ request.path }}">
                     <button type="submit" class="btn btn-primary my-2 mx-2">Details</button>
                 </form>
@@ -25,6 +25,11 @@
                 <form action="{{ url_for('item.item_delete', pk=item.id) }}" method="POST">
                     <input type="hidden" name="next" value="{{ request.path }}">
                     <button type="submit" class="btn btn-danger my-2 mx-2">Delete</button>
+                </form>
+
+                <form action="{{ url_for('cart.add_cart', pk=item.id) }}" method="POST">
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button type="submit" class="btn btn-primary">Add to cart</button>
                 </form>
 
 

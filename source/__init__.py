@@ -1,3 +1,4 @@
+from datetime import timedelta
 from os import environ
 
 from flask import Flask
@@ -17,6 +18,7 @@ def create_app():
     app.config['SECRET_KEY'] = secret_key
     app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # redis_client = FlaskRedis(app)
 
     db.init_app(app)
     migrate.init_app(app, db)
