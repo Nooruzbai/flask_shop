@@ -15,7 +15,6 @@ class RegistrationForm(FlaskForm):
                                default=datetime.today,
                                validators=[DataRequired()])
     submit = SubmitField(label='Submit')
-    role = RadioField('Role', choices=['Admin', 'User'], default='User')
 
 
 class LoginForm(FlaskForm):

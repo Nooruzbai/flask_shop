@@ -37,14 +37,13 @@ def register():
     if form.validate_on_submit():
         email = form.email.data
         phone_number = form.phone_number.data
-        role = form.role.data
-        new_user = User(email=email, role=role, phone_number=phone_number)
+        new_user = User(email=email, phone_number=phone_number)
         new_user.set_password(form.password.data)
         db.session.add(new_user)
         db.session.commit()
         flash("Registration was successfull, please login")
         return redirect(url_for('auth.login'))
-    return render_template('templates/auth/register.html', form=form, user=current_user)
+    return render_template('auth/register.html', form=form, user=current_user)
 
 
 @auth.route('/logout')

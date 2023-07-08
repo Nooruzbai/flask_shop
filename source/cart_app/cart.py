@@ -1,7 +1,5 @@
 from flask import Blueprint, session, flash, redirect, url_for, render_template, request
 from flask_login import current_user
-
-from source.cart_app.cart_forms import ItemCartForm
 from source.item_app.item_models import Item
 
 cart = Blueprint('cart', __name__)
@@ -11,8 +9,8 @@ cart = Blueprint('cart', __name__)
 def cart_list():
     if 'cart' not in session or not session['cart']:
         flash('Your cart is empty', category='warning')
-        # return render_template('cart/cart.html', user=current_user)
-        return redirect(url_for('cart.cart_list'))
+        return render_template('cart/cart.html', user=current_user)
+        # return redirect(url_for('cart.cart_list'))
     return render_template('cart/cart.html', user=current_user)
 
 
@@ -39,5 +37,17 @@ def delete_item_from_cart(pk):
             session['cart'].pop(item_id)
             session.modified = True
     return redirect(url_for('cart.cart_list'))
+
+
+@cart.route("/update_item_in_cart/<int:pk>", methods=['POST'])
+def update_item_in_cart(pk):
+    # for item_id, item in list(session['cart'].items()):
+    #     if int(item_id) == pk:
+    #         session['cart'].pop(item_id)
+    #         session.modified = True
+    # return redirect(url_for('cart.cart_list'))
+    pass
+
+
 
 

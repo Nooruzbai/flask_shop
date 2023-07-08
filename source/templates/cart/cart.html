@@ -23,25 +23,34 @@
         </thead>
         <tbody>
         {% if session['cart'] %}
-            {% for id, item in session['cart'].items() %}
+            {% for item_id, item in session['cart'].items() %}
                 <tr>
                     <th scope="row">{{ loop.index }}</th>
                     <td>{{ item.name }}</td>
                     <td>{{ item.price }}</td>
                     <td>
+
                     </td>
                     <td>
-                        <form action="{{ url_for('cart.delete_item_from_cart', pk=id) }}" method="POST">
+                        <form action="{{ url_for('cart.delete_item_from_cart', pk=item_id) }}" method="POST">
                             <input type="hidden" name="next" value="{{ request.path }}">
-                            <button type="submit" class="btn btn-primary">{{ 'Delete item' }}</button>
+                            <button type="submit" class="btn btn-primary my-2 mx-2">Delete item</button>
                         </form>
-                    </td>
+                        <form action="{{ url_for('cart.update_item_in_cart', pk=item_id) }}" method="POST">
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <button type="submit" class="btn btn-primary my-2 mx-2">Update item</button>
+                        </form>
 
+
+                    </td>
                 </tr>
             {% endfor %}
         {% endif %}
         </tbody>
     </table>
+
+
+
 
 
 {% endblock %}

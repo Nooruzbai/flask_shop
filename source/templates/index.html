@@ -3,9 +3,21 @@
 {% block content %}
     <h1>HomePage Online Shop</h1>
 
-    <div class="p-3">
-        <a class="btn btn-primary btn-lg" href="{{ url_for('item.add_item') }}">Create new item</a>
-    </div>
+
+    {% if current_user.is_admin %}
+
+        <div class="p-3">
+            <a class="btn btn-primary btn-lg" href="{{ url_for('item.add_item') }}">Create new item</a>
+        </div>
+    {% endif %}
+
+    
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+    {% endfor %}
 
 
     {% for item in items %}
@@ -21,11 +33,12 @@
                     <button type="submit" class="btn btn-primary my-2 mx-2">Details</button>
                 </form>
 
-
-                <form action="{{ url_for('item.item_delete', pk=item.id) }}" method="POST">
-                    <input type="hidden" name="next" value="{{ request.path }}">
-                    <button type="submit" class="btn btn-danger my-2 mx-2">Delete</button>
-                </form>
+                {% if current_user.is_admin %}
+                    <form action="{{ url_for('item.item_delete', pk=item.id) }}" method="POST">
+                        <input type="hidden" name="next" value="{{ request.path }}">
+                        <button type="submit" class="btn btn-danger my-2 mx-2">Delete</button>
+                    </form>
+                {% endif %}
 
                 <form action="{{ url_for('cart.add_cart', pk=item.id) }}" method="POST">
                     <input type="hidden" name="next" value="{{ request.path }}">

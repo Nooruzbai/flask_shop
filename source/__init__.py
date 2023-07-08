@@ -1,3 +1,4 @@
+import os
 from datetime import timedelta
 from os import environ
 
@@ -18,7 +19,6 @@ def create_app():
     app.config['SECRET_KEY'] = secret_key
     app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    # redis_client = FlaskRedis(app)
 
     db.init_app(app)
     migrate.init_app(app, db)
@@ -26,7 +26,6 @@ def create_app():
     login_manager.login_view = "auth.login"
 
     from source.auth_app.user_models import User
-    from source.item_app.item_models import Item
 
     @login_manager.user_loader
     def load_user(id):

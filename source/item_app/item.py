@@ -1,8 +1,11 @@
-from flask import render_template, Blueprint, redirect, request, session, url_for, flash
+from flask import render_template, Blueprint, redirect, url_for, flash
 from flask_login import login_required, current_user
+
+from source.auth_app.utils import admin_permission
 from source.extensions import db
 from source.item_app.item_forms import ItemForm
 from source.item_app.item_models import Item
+
 
 item = Blueprint('item', __name__)
 
@@ -16,6 +19,7 @@ def home_page():
 
 
 @item.route('/add_item', methods=['GET', 'POST'])
+@admin_permission
 def add_item():
     form = ItemForm()
     if form.validate_on_submit():
@@ -33,13 +37,16 @@ def item_details(pk):
     item = Item.query.get_or_404(pk)
     return render_template('items/detail.html', item=item, user=current_user)
 
+
 @item.route('/item_delete/<int:pk>')
+@admin_permission
 def item_delete(pk):
-    item = Item.query.get_or_404(pk)
-    db.session.delete(item)
+    queried_item = Item.query.get_or_404(pk)
+    db.session.delete(queried_item)
     db.session.commit()
     flash('The item was deleted!')
     return render_template('items/detail.html', item=item, user=current_user)
+
 
 
 
