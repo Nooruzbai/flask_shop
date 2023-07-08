@@ -10,7 +10,6 @@ def cart_list():
     if 'cart' not in session or not session['cart']:
         flash('Your cart is empty', category='warning')
         return render_template('cart/cart.html', user=current_user)
-        # return redirect(url_for('cart.cart_list'))
     return render_template('cart/cart.html', user=current_user)
 
 

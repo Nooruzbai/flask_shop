@@ -38,15 +38,33 @@ def item_details(pk):
     return render_template('items/detail.html', item=item, user=current_user)
 
 
-@item.route('/item_delete/<int:pk>')
+@item.route('/item_delete/<int:pk>',  methods=['POST'])
 @admin_permission
 def item_delete(pk):
     queried_item = Item.query.get_or_404(pk)
     db.session.delete(queried_item)
     db.session.commit()
     flash('The item was deleted!')
-    return render_template('items/detail.html', item=item, user=current_user)
+    return redirect(url_for('item.home_page', item=item, user=current_user))
+    # return render_template('index.html', item=item, user=current_user)
 
+
+
+@item.route('/update_item/<int:pk>', methods=['GET', 'POST'])
+@admin_permission
+def update_item(pk):
+    form = ItemForm()
+    item = Item.query.get_or_404(pk)
+    if form.validate_on_submit():
+        item.name = form.name.data
+        item.price = form.price.data
+        db.session.add(item)
+        db.session.commit()
+        flash(f"You have upadated item {item.name}", category='success')
+        return redirect(url_for('item.home_page'))
+    form.name.data = item.name
+    form.price.data = item.price
+    return render_template('items/update.html', form=form, user=current_user)
 
 
 

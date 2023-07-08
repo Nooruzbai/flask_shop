@@ -1,19 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Item Details</h1>
 
-    <div class="card" style="width: 18rem;">
+    <div>
+        <h1 class="font-weight-bold">Item Details</h1>
+    </div>
 
-        {#          <img src="..." class="card-img-top" alt="...">  #}
+
+
+
+    <div class="card">
+        <h5 class="card-header">Name: {{ item.name }}</h5>
         <div class="card-body">
-            <h5 class="card-title">{{ item.name }}</h5>
-            <p class="card-text">{{ item.price }}</p>
+            <h5 class="card-title">Price: {{ item.price }}</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+
+
+            <form action="{{ url_for('cart.add_cart', pk=item.id) }}" method="POST">
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <button type="submit" class="btn btn-primary">{{ 'Add to Cart' }}</button>
+            </form>
+
         </div>
     </div>
-    <form action="{{ url_for('cart.add_cart', pk=item.id) }}" method="POST">
-        <input type="hidden" name="next" value="{{ request.path }}">
-        <button type="submit" class="btn btn-primary">{{ 'Add to Cart' }}</button>
-    </form>
+
 
 {% endblock %}

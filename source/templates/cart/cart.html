@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Cart</h1>
+
+    <div>
+        <h1 class="font-weight-bold">Cart</h1>
+    </div>
 
     {% for message in get_flashed_messages() %}
         <div class="alert alert-warning">
@@ -36,10 +39,10 @@
                             <input type="hidden" name="next" value="{{ request.path }}">
                             <button type="submit" class="btn btn-primary my-2 mx-2">Delete item</button>
                         </form>
-                        <form action="{{ url_for('cart.update_item_in_cart', pk=item_id) }}" method="POST">
-                            <input type="hidden" name="next" value="{{ request.path }}">
-                            <button type="submit" class="btn btn-primary my-2 mx-2">Update item</button>
-                        </form>
+{#                        <form action="{{ url_for('cart.update_item_in_cart', pk=item_id) }}" method="POST">#}
+{#                            <input type="hidden" name="next" value="{{ request.path }}">#}
+{#                            <button type="submit" class="btn btn-primary my-2 mx-2">Update item</button>#}
+{#                        </form>#}
 
 
                     </td>
