@@ -27,8 +27,6 @@
                     <a class="nav-link ms-auto" href="{{ url_for('cart.cart_list') }}" tabindex="-1">Cart
                         ({{ session['cart'] | length }})</a>
                     <a class="nav-link ms-auto" href="{{ url_for('auth.logout') }}" tabindex="-1">Logout</a>
-
-
                 {% else %}
                     <a class="nav-link ms-auto" href="{{ url_for('auth.login') }}" tabindex="-1">Login</a>
                     <a class="nav-link ms-auto" href="{{ url_for('auth.register') }}" tabindex="-1">Register</a>

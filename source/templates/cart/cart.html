@@ -19,8 +19,8 @@
         <tr>
             <th scope="col">id</th>
             <th scope="col">Item name</th>
-            <th scope="col">Price</th>
             <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
             <th scope="col">Action</th>
         </tr>
         </thead>
@@ -30,26 +30,43 @@
                 <tr>
                     <th scope="row">{{ loop.index }}</th>
                     <td>{{ item.name }}</td>
-                    <td>{{ item.price }}</td>
                     <td>
-
+                        <form>
+                            <div class="form-group w-25">
+                                <input class="form-control input-sm" value="{{  item.quantity }}" id="inputsm" type="number" min="0">
+                            </div>
+                        </form>
                     </td>
+                    <td>{{ item.price }} $</td>
                     <td>
                         <form action="{{ url_for('cart.delete_item_from_cart', pk=item_id) }}" method="POST">
                             <input type="hidden" name="next" value="{{ request.path }}">
                             <button type="submit" class="btn btn-primary my-2 mx-2">Delete item</button>
                         </form>
-{#                        <form action="{{ url_for('cart.update_item_in_cart', pk=item_id) }}" method="POST">#}
-{#                            <input type="hidden" name="next" value="{{ request.path }}">#}
-{#                            <button type="submit" class="btn btn-primary my-2 mx-2">Update item</button>#}
-{#                        </form>#}
-
+                        {#                        <form action="{{ url_for('cart.update_item_in_cart', pk=item_id) }}" method="POST">#}
+                        {#                            <input type="hidden" name="next" value="{{ request.path }}">#}
+                        {#                            <button type="submit" class="btn btn-primary my-2 mx-2">Update item</button>#}
+                        {#                        </form>#}
 
                     </td>
                 </tr>
             {% endfor %}
+
         {% endif %}
         </tbody>
+    </table>
+
+    <tbody>
+
+    <table class="table">
+
+        <thead class="thead">
+        <tr>
+            <th scope="col">Total</th>
+            <th scope="col">{{ total }} $</th>
+        </tr>
+        </thead>
+
     </table>
 
 
