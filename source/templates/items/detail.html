@@ -7,22 +7,36 @@
     </div>
 
 
-
-
-    <div class="card">
-        <h5 class="card-header">Name: {{ item.name }}</h5>
+    <div class="card mb-3">
+        <img class="card-img-top" src="{{ item.image }}" alt="{{ item.name }} image">
         <div class="card-body">
-            <h5 class="card-title">Price: {{ item.price }}</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-
-
-            <form action="{{ url_for('cart.add_cart', pk=item.id) }}" method="POST">
+            <h5 class="card-title">Name: {{ item.name }}</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
+                content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="text-muted">Price: {{ item.price }}</small></p>
+                 <form action="{{ url_for('cart.add_cart', pk=item.id) }}" method="POST">
                 <input type="hidden" name="next" value="{{ request.path }}">
                 <button type="submit" class="btn btn-primary">{{ 'Add to Cart' }}</button>
             </form>
-
         </div>
     </div>
+
+
+{#    <div class="card">#}
+{#        <h5 class="card-header">Name: {{ item.name }}</h5>#}
+{#        <img src="{{ item.image }}" class="card-img-top" alt="{{ item.name }} image">#}
+{#        <div class="card-body">#}
+{#            <h5 class="card-title">Price: {{ item.price }}</h5>#}
+{#            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>#}
+{##}
+{##}
+{#            <form action="{{ url_for('cart.add_cart', pk=item.id) }}" method="POST">#}
+{#                <input type="hidden" name="next" value="{{ request.path }}">#}
+{#                <button type="submit" class="btn btn-primary">{{ 'Add to Cart' }}</button>#}
+{#            </form>#}
+{##}
+{#        </div>#}
+{#    </div>#}
 
 
 {% endblock %}

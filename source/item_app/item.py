@@ -1,5 +1,8 @@
-from flask import render_template, Blueprint, redirect, url_for, flash
+import os
+
+from flask import render_template, Blueprint, redirect, url_for, flash, current_app
 from flask_login import login_required, current_user
+from werkzeug.utils import secure_filename
 
 from source.auth_app.utils import admin_permission
 from source.extensions import db
@@ -26,6 +29,14 @@ def add_item():
         name = form.name.data
         price = form.price.data
         new_item = Item(name=name, price=price)
+        uploaded_file = form.image.data
+        filename = secure_filename(uploaded_file.filename)
+        image_path = os.path.join(current_app.config['UPLOAD_PATH'], filename)
+        new_item.image = image_path
+        path_list = new_item.image.split('/')[1:]
+        new_path = "/".join(path_list)
+        new_item.image = new_path
+        uploaded_file.save(image_path)
         db.session.add(new_item)
         db.session.commit()
         return redirect(url_for('item.home_page'))
@@ -46,7 +57,6 @@ def item_delete(pk):
     db.session.commit()
     flash('The item was deleted!')
     return redirect(url_for('item.home_page', item=item, user=current_user))
-    # return render_template('index.html', item=item, user=current_user)
 
 
 
@@ -58,6 +68,14 @@ def update_item(pk):
     if form.validate_on_submit():
         item.name = form.name.data
         item.price = form.price.data
+        uploaded_file = form.image.data
+        filename = secure_filename(uploaded_file.filename)
+        image_path = os.path.join(current_app.config['UPLOAD_PATH'], filename)
+        item.image = image_path
+        path_list = item.image.split('/')[1:]
+        new_path = "/".join(path_list)
+        item.image = new_path
+        uploaded_file.save(image_path)
         db.session.add(item)
         db.session.commit()
         flash(f"You have upadated item {item.name}", category='success')

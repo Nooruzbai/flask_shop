@@ -14,11 +14,13 @@ def create_app():
     postgres_user = environ.get('POSTGRES_USER')
     postgres_password = environ.get('POSTGRES_PASSWORD')
     postgres_database = environ.get('POSTGRES_DB')
+    UPLOAD_PATH = os.environ.get('UPLOAD_PATH')
 
     database_url = f'postgresql://{postgres_user}:{postgres_password}@localhost/{postgres_database}'
     app.config['SECRET_KEY'] = secret_key
     app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['UPLOAD_PATH'] = UPLOAD_PATH
 
     db.init_app(app)
     migrate.init_app(app, db)
