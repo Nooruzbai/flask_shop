@@ -1,14 +1,14 @@
 import os
 
-from flask import render_template, Blueprint, redirect, url_for, flash, current_app
+from flask import render_template, Blueprint, redirect, url_for, flash, current_app, jsonify
 from flask_login import login_required, current_user
+from flask_wtf.csrf import generate_csrf
 from werkzeug.utils import secure_filename
 
 from source.auth_app.utils import admin_permission
 from source.extensions import db
 from source.item_app.item_forms import ItemForm
-from source.item_app.item_models import Item
-
+from source.item_app.item_models import Item, item_user
 
 item = Blueprint('item', __name__)
 
@@ -46,7 +46,13 @@ def add_item():
 @item.route('/item_details/<int:pk>')
 def item_details(pk):
     item = Item.query.get_or_404(pk)
-    return render_template('items/detail.html', item=item, user=current_user)
+    extra_content = {"image_path": None}
+    if item.image:
+        image_path = item.image.strip('static/')
+        extra_content['image_path'] = image_path
+    elif not item.image:
+        extra_content['image_path'] = 'uploads/blank.png'
+    return render_template('items/detail.html', item=item, image_path=extra_content, user=current_user)
 
 
 @item.route('/item_delete/<int:pk>',  methods=['POST'])
@@ -83,6 +89,23 @@ def update_item(pk):
     form.name.data = item.name
     form.price.data = item.price
     return render_template('items/update.html', form=form, user=current_user)
+
+
+@item.route('/favorite/<int:pk>', methods=["GET", "POST"])
+def favorite(pk):
+    query_item = Item.query.get_or_404(pk)
+    print(query_item)
+    if query_item.favorited_users.filter_by(id=current_user.id).first():
+        query_item.favorited_users.remove(current_user)
+        db.session.commit()
+        button_text = 'Favorite'
+    else:
+        query_item.favorited_users.append(current_user)
+        db.session.commit()
+        button_text = 'Unfavorite'
+    return {'value': button_text}
+
+
 
 
 

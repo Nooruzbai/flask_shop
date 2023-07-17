@@ -33,6 +33,15 @@
                     <div class="card" style="">
 
                         <img src="{{ item.image }}" class="card-img-top" alt="...">
+
+
+
+                        <button class="favorite_button btn btn-link" type="button" data-item-url="{{ url_for('item.favorite', pk=item.id) }}">
+                            <span class="bi bi-heart"></span>
+                        </button>
+
+
+
                         <div class="card-body">
                             <h5 class="card-title">Name: {{ item.name }}</h5>
                             <p class="card-text">Price: {{ item.price }}</p>
@@ -72,6 +81,7 @@
         {% endfor %}
 
     </div>
+
 
 
 {% endblock %}
