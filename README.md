@@ -19,14 +19,14 @@ In order to install and launch the application, please follow the steps below:
 3. In the main directory "flask_shop_app" create a ".env" file.
 
 4. Fill the ".env" file with data:
-SECRET_KEY=create a secret key
-POSTGRES_HOST=localhost
+##SECRET_KEY=create a secret key
+##POSTGRES_HOST=localhost
         Attention: If you want to run in docker services please change the DATABASE HOST part in "database_url"
         in source/__init__.py file such database_url = f'postgresql://{postgres_user}:{postgres_password}@db/{postgres_database}'
-POSTGRES_DB=postgres
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-UPLOAD_PATH=source/static/uploads
+##POSTGRES_DB=postgres
+##POSTGRES_USER=postgres
+##POSTGRES_PASSWORD=postgres
+##UPLOAD_PATH=source/static/uploads
 
 5. In the main directory "flask_shop_app" create a ".flaskenv" file.
 6. Fill the file with folowing data:
