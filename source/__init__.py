@@ -17,7 +17,7 @@ def create_app():
     upload_path = os.environ.get('UPLOAD_PATH')
     postgres_host = os.environ.get('POSTGRES_HOST')
 
-    database_url = f'postgresql://{postgres_user}:{postgres_password}@localhost/{postgres_database}'
+    database_url = f'postgresql://{postgres_user}:{postgres_password}@db/{postgres_database}'
     app.config['SECRET_KEY'] = secret_key
     app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

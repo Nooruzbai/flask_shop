@@ -1,24 +1,27 @@
 version: '3.8'
 
 services:
+  db:
+    image: postgres:14
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
   web:
-    build: ./
-    command: flask  run -h 0.0.0.0
+    build: .
+    command: sh -c "flask run --host 0.0.0.0"
+    restart: on-failure
     volumes:
       - .:/usr/src/app/
     ports:
-      - 5000:5000
+      - "5000:5000"
     env_file:
       - .env
       - .flaskenv
-  db:
-    image: postgres:13
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    ports:
-      - "5432:5432"
-    env_file:
-      - .env
+    depends_on:
+      - db
 
 
 volumes:
