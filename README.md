@@ -31,11 +31,14 @@ UPLOAD_PATH=source/static/uploads
 5. In the main directory "flask_shop_app" create a ".flaskenv" file.
 6. Fill the file with folowing data:
 FLASK_APP="source"
-FLASK_DEBUG=TRUE
+FLASK_DEBUG=TRUE(In development mode, if not put FALSE)
 
 7. If you are running "Docker" services please run: 
     sudo docker compose up --build
+
 8. If you want to run locally please run:
     flask run
-9. 
-If you have ecountered any issues please write me to nooruzbay@gmail.com
+
+9. Please register and login with right credentials.
+
+If you have encountered any issues, please write me to "nooruzbay@gmail.com".
