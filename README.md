@@ -21,7 +21,7 @@ In order to install and launch the application, please follow the steps below:
 4. Fill the ".env" file with data:
 SECRET_KEY=create a secret key
 POSTGRES_HOST=localhost
-        Attention: If you want to run in docker services please change the DATABASE HOST part in "datase_url"
+        Attention: If you want to run in docker services please change the DATABASE HOST part in "database_url"
         in source/__init__.py file such database_url = f'postgresql://{postgres_user}:{postgres_password}@db/{postgres_database}'
 POSTGRES_DB=postgres
 POSTGRES_USER=postgres
