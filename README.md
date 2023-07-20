@@ -9,19 +9,28 @@ Technologies utilized in the application:
 6. SQLAalchemy
 7. Postgresql
 8. Bootstrap
+9. Docker, DockerCompose
 
 In order to install and launch the application, please follow the steps below:
 1. If you do not have git, please install it.
 
 
 2. Clone the repository from the GitHub using this command:
-    git clone https://github.com/Nooruzbai/flask_shop_app.git
+    git clone https://github.com/Nooruzbai/flask_shop_app.git  
+
+5. After cloning the repository, please go to cloned folder and execute the commands in Linux or Windows command line bellow:
+
+6. Create virtual environment:  
+python3 -m venv venv.  
+7. Activate the virtual environment:  
+for Linux: source venv/bin/activate  
+for Windows: python3 venv\Scripts\activate
+8. Install the dependencies:  
+pip install -r requirements.txt
+4. In the main directory "flask_shop_app" create a ".env" file.
 
 
-3. In the main directory "flask_shop_app" create a ".env" file.
-
-
-4. Fill the ".env" file with data:
+5. Fill the ".env" file with data:
 
 SECRET_KEY=create a secret key  
 POSTGRES_HOST=localhost
@@ -35,21 +44,21 @@ POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres  
 UPLOAD_PATH=source/static/uploads  
 
-5. In the main directory "flask_shop_app" create a ".flaskenv" file.
+6. In the main directory "flask_shop_app" create a ".flaskenv" file.
 
-6. Fill the file with folowing data:  
+7. Fill the file with folowing data:  
 FLASK_APP="source"  
 FLASK_DEBUG=TRUE(In development mode, if not put FALSE)
 
-7. If you are running "Docker" services please run: 
+8. If you are running "Docker" services please run: 
     sudo docker compose up --build
 
 
-8. If you want to run locally please run:
+9. If you want to run locally please run:
     flask run
 
 
-9. Please register and login with right credentials.
+10. Please register and login with right credentials.
 
 
 If you have encountered any issues, please write me to "nooruzbay@gmail.com".
